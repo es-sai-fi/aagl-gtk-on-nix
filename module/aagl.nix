@@ -21,7 +21,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = pkgs.anime-game-launcher;
+      default = null;
       description = lib.mdDoc ''
         anime-game-launcher package to use.
       '';
@@ -29,7 +29,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [cfg.package];
+    environment.systemPackages = [(cfg.package or (pkgs.callPackage ../pkgs/anime-game-launcher))];
     networking.mihoyo-telemetry.block = true;
   };
 }
